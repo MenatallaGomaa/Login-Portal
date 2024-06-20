@@ -1,15 +1,35 @@
 <template>
-  <div class="about">
-    <h1>This is an about page</h1>
+  <div class="home">
+    <h1>This is an home page</h1>
+    <div>
+      <div v-if="!this.isLogged">
+        <small>Not Loged In?</small><br /><button type="button" @click="loginClick()">Login</button>
+      </div>
+      <div v-else>
+        <small>You are logged In</small>
+        <button @click="logOut()">LogOut</button>
+      </div>
+    </div>
   </div>
 </template>
-
-<style>
-@media (min-width: 1024px) {
-  .about {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
+<script>
+import { login, isLogged, logUserOut } from '../utils/auth'
+export default {
+  name: 'HomeView',
+  components: {},
+  methods: {
+    loginClick() {
+      login()
+    },
+    logOut() {
+      this.isLogged = false
+      logUserOut()
+    }
+  },
+  data: () => {
+    return {
+      isLogged: isLogged()
+    }
   }
 }
-</style>
+</script>
